@@ -1,0 +1,20 @@
+{
+  "name": "youtube",
+  "version": "1.0.0",
+  "description": "Download e Conversão de Vídeos YouTube",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Rallristhy",
+  "license": "ISC",
+  "dependencies": {
+    "admin-lte": "^2.3.11",
+    "angular": "^1.6.6",
+    "body-parser": "^1.18.1",
+    "express": "^4.15.4",
+    "font-awesome": "^4.7.0",
+    "nodemon": "^1.12.0",
+    "youtube-mp3-downloader": "^0.5.1"
+  }
+}

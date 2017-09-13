@@ -1,0 +1,24 @@
+body {
+	background: #E8E8E8;
+}
+/* Style Header */
+header {
+	width: 100%; /*Pegar a largura da tela inteira*/
+	height: 145px;
+	background: linear-gradient(to right, black, rgba(176, 58, 46, .9) 30%, black  100%);
+	z-index: 2; /*Trazer para frente*/
+	position: fixed;
+}
+
+header .container {
+	position: relative;
+}
+
+header .rowHeader {
+	margin-top: 45px;
+	color: white;
+	/*font-family: "OpenSans-Light";*/
+	text-shadow: 2px 2px 2px rgba(0, 0, 0, .45);
+	font-size: 1.3em;
+
+}
