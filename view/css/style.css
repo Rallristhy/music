@@ -1,24 +1,52 @@
-body {
-	background: #E8E8E8;
-}
-/* Style Header */
-header {
-	width: 100%; /*Pegar a largura da tela inteira*/
-	height: 145px;
-	background: linear-gradient(to right, black, rgba(176, 58, 46, .9) 30%, black  100%);
-	z-index: 2; /*Trazer para frente*/
-	position: fixed;
-}
-
-header .container {
+.container-fluid {
 	position: relative;
 }
 
-header .rowHeader {
-	margin-top: 45px;
+header {
+	background: rgba(128, 0, 0, .9);
+	padding-top: 40px;
+	height: 140px;
 	color: white;
-	/*font-family: "OpenSans-Light";*/
+	font-family: sans-serif;
 	text-shadow: 2px 2px 2px rgba(0, 0, 0, .45);
-	font-size: 1.3em;
+	/*text-transform: uppercase; capitalize lowercase none*/
+    letter-spacing: 4px;
+    font-size: 2.6em;	
 
+    animation-name: mudadecor;
+    animation-duration: 4s;
+    
+}
+
+header h1 {
+	animation-name: alteratamanho;
+    animation-duration: 4s;
+}
+
+section {
+	background: red;
+}
+
+footer {
+	background: gray;
+}
+
+@keyframes mudadecor {
+    from {
+    		background: rgba(128, 0, 0, .4);
+    	}
+    to {
+    	background: rgba(128, 0, 0, .9);
+    	font-size: 2.6em;
+    }
+}
+
+@keyframes alteratamanho {
+    from {
+    		font-size: 1.6em;
+    	}
+    to {
+    	
+    	/*font-size: 2.6em;*/
+    }
 }
