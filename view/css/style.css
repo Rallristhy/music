@@ -1,5 +1,14 @@
+body {
+    background: rgba(102, 99, 98, 1);
+}
+
 .container-fluid {
 	position: relative;
+}
+
+.rfooter {
+    padding-top: 100%;
+    /*background: black;*/
 }
 
 header {
@@ -13,20 +22,25 @@ header {
     letter-spacing: 4px;
     font-size: 2.6em;	
 
-    animation-name: mudadecor;
-    animation-duration: 4s;
+    /*animation-name: mudadecor;
+    animation-duration: 4s;*/
     
 }
 
 header h1 {
-	animation-name: alteratamanho;
-    animation-duration: 4s;
+	/*animation-name: alteratamanho;
+    animation-duration: 4s;*/
 }
 
 section {
-	background: red;
+    padding-top: 35px;
+    height: 500px;
+	/*background: rgba(102, 99, 98, .2);*/
 }
 
+#linkyb {
+    width: 80%;
+}
 footer {
 	background: gray;
 }

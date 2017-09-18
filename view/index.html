@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 
 <!-- Diretiva ng-app, significa que o angular irá controla todos conteúdo dentro de html -->
-<html>
+<html ng-app="app">
 <head>
 	<meta charset="utf-8">
 
@@ -10,6 +10,11 @@
   	<link rel="stylesheet" type="text/css" href="node_modules/admin-lte/bootstrap/css/bootstrap.min.css">
   	<link rel="stylesheet" type="text/css" href="node_modules/font-awesome/css/font-awesome.css">
   	<link rel="stylesheet" type="text/css" href="view/css/style.css">
+
+  	<script type="text/javascript" src="../node_modules/angular/angular.min.js"></script>
+  	<script type="text/javascript" src="/core/core.js"></script>
+  	
+  	<script type="text/javascript" src="socket.io/socket.io.js"></script>
 
 	<title>Download de Musicas</title>
 	
@@ -29,9 +34,9 @@
 </head>
 <body>
 
-	<div class="container-fluid">
+	<div class="container-fluid maincontainer">
 
-		<div class="row">
+		<div class="row rheader">
 			<header class="text-center">
 				<!-- <p> -->
 					
@@ -46,13 +51,24 @@
 			</header>
 		</div>
 
-		<div class="row">
-			<section>section
+		<div class="row rsection">
+			
+			<section>
+				
+				<div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 text-center" ng-controller="Controller as ctr">
+					<div class="form-inline">
+						<input type="text" class="form-control" id="linkyb" placeholder="Link" ng-model="ctr.link_video">
+						<button type="submit" class="btn btn-primary" ng-click="ctr.download_convert_mp3()">Converter Video</button>
+					</div>
+
+				</div>
+			
 		
 			</section>
+			
 		</div>
 
-		<div class="row">
+		<div class="row rfooter">
 			<footer>footer
 		
 			</footer>
