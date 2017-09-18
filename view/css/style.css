@@ -38,6 +38,22 @@ section {
 	/*background: rgba(102, 99, 98, .2);*/
 }
 
+section .row {
+    margin-top: 45px;
+}
+
+section .row .progresso {
+    text-align: end;
+}
+
+section progress {
+    vertical-align: middle;
+}
+
+section .row .velocidade {
+    text-align: initial;
+}
+
 #linkyb {
     width: 80%;
 }

@@ -31,13 +31,6 @@ app.use("/view",  express.static(__dirname + '/view'));
 app.use("/resources",  express.static(__dirname + '/resources'));
 app.use("/core",  express.static(__dirname + '/core'));
 
-var video = new YoutubeMp3Downloader({
-    "ffmpegPath": "resources/ffmpeg/bin/ffmpeg.exe",        // Where is the FFmpeg binary located? 
-    "outputPath": "resources/output",    // Where should the downloaded and encoded files be stored? 
-    "youtubeVideoQuality": "highest",       // What video quality should be used? 
-    "queueParallelism": 2,                  // How many parallel downloads/encodes should be started? 
-    "progressTimeout": 2000                 // How long should be the interval of the progress reports 
-});
 
 //console.log(video);
 
@@ -45,9 +38,40 @@ var video = new YoutubeMp3Downloader({
 
 /* Estabelecendo comunicação socketIO */
 io.on('connection', function(socket){
+    connection = socket;
+    var video = new YoutubeMp3Downloader({
+        "ffmpegPath": "resources/ffmpeg/bin/ffmpeg.exe",        // Where is the FFmpeg binary located? 
+        "outputPath": "resources/output",    // Where should the downloaded and encoded files be stored? 
+        "youtubeVideoQuality": "highest",       // What video quality should be used? 
+        "queueParallelism": 2,                  // How many parallel downloads/encodes should be started? 
+        "progressTimeout": 2000                 // How long should be the interval of the progress reports 
+    });
 
     /* Informa ao servidor o IP que conectou na aplicação */
     console.log(socket.handshake.address.substring(7, 20)+" ID: "+socket.id+" entrou...");
+
+    video.on("finished", function(err, data) {
+        console.log(JSON.stringify(data));
+    });
+     
+    video.on("error", function(error) {
+        console.log("error "+error);
+    });
+     
+    video.on("progress", function(progresso) {
+        //console.log(JSON.stringify(progresso));
+        connection.emit("progresso", {progresso: Math.floor(progresso.progress.percentage),
+                              velocidade: Math.floor((progresso.progress.speed/1024))
+                            });
+        console.log("Progresso: "+Math.floor(progresso.progress.percentage)+"% Velocidade: "+Math.floor((progresso.progress.speed/1024))+" kbps");
+    });
+
+    /* Rotas Data para Front */
+    app.post('/teste', function(request, response){
+        console.log(request.body.data);
+        video.download(request.body.data/*, "Rallristhy.mp3"*/);
+        response.send(video);
+    });
     
     /* Fechando Conexão entre Cliente-Servidor */
     socket.on('disconnect', function(){
@@ -57,30 +81,11 @@ io.on('connection', function(socket){
     });    
 });
 
-video.on("finished", function(err, data) {
-    console.log(JSON.stringify(data));
-});
- 
-video.on("error", function(error) {
-    console.log("error "+error);
-});
- 
-video.on("progress", function(progresso) {
-    //console.log(JSON.stringify(progresso));
-    io.emit('progresso', progresso.progress.percentage);
-    console.log("Progresso: "+Math.floor(progresso.progress.percentage)+"% Velocidade: "+Math.floor((progresso.progress.speed/1024))+" kbps");
-});
+
 
 /* Rota Padrão */
 app.get ('/', function (request, response){
 	response.sendFile(__dirname + '/view/index.html');
-});
-
-/* Rotas Data para Front */
-app.post('/teste', function(request, response){
-    console.log(request.body.data);
-    video.download(request.body.data/*, "Rallristhy.mp3"*/);
-    response.send(video);
 });
 
 /* Criar uma constante para porta que será executada */

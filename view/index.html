@@ -34,7 +34,7 @@
 </head>
 <body>
 
-	<div class="container-fluid maincontainer">
+	<div class="container-fluid maincontainer" ng-controller="Controller as ctr">
 
 		<div class="row rheader">
 			<header class="text-center">
@@ -55,12 +55,25 @@
 			
 			<section>
 				
-				<div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 text-center" ng-controller="Controller as ctr">
+				<div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 text-center">
 					<div class="form-inline">
 						<input type="text" class="form-control" id="linkyb" placeholder="Link" ng-model="ctr.link_video">
 						<button type="submit" class="btn btn-primary" ng-click="ctr.download_convert_mp3()">Converter Video</button>
 					</div>
 
+				</div>
+
+				<div class="row">
+					<div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 progresso">
+						<progress max="100" ng-model="progresso" value={{ctr.progresso}}><progress/>	
+					</div>
+					<div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 velocidade">
+						<div  ng-model="velocidade">
+							<p>{{ctr.velocidade}}</p>
+						</div>
+					</div>
+
+					
 				</div>
 			
 		

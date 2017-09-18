@@ -5,9 +5,9 @@
 angular.module('app', []);
 
 /* Criando uma controller e adicionando na app */
-angular.module('app').controller('Controller', ['$http',
+angular.module('app').controller('Controller', ['$http', '$scope',
 
-	function($http){
+	function($http, $scope){
 
 		/* Instanciando SocketIO */
   		var socket = io();
@@ -34,35 +34,26 @@ angular.module('app').controller('Controller', ['$http',
 		            console.error("error in posting");
 		        });
 
-
-			/*$http.post({url:'/teste',data:ctr.link_video})
-		        .success(function (data) {
-		            console.log("Success" + data);
-		        })
-		        .error(function(data) {
-		            console.log("Erro: "+data);
-		        })*/
-			
-		
-			//$http({method: 'POST', url: '/teste'}).then(function successCallback(data) {
-			/* Recebe o objeto GET por /data */
-			/*$scope.dataHeader.bovespaHeaderData = data.data[0];
-			$scope.dataCotacao.bovespaCotacaoData = data.data[1];
-			$scope.dataTrailer.bovespaTrailerData = data.data[3]; 
-			*/
-			//console.log(data.data);
-		
-
-		//}, function errorCallback(response) {
-			//console.log('Erro ao receber arquivo: ' + response);
-		//});
 		}
 
+		var progresso, velocidade;
 		socket.on("progresso", function(data){
 
-		    console.log(data);
+			/* O socket não conhece o ciclo de vida do Angular, por isso é necessário injetar o $scope */
+			$scope.$apply(function () {
+                ctr.progresso = data.progresso;
+
+                if(data.velocidade >= 1024){
+                	ctr.velocidade = Math.floor((data.velocidade/1024))+" Mbps";
+                }
+                else {
+                	ctr.velocidade = data.velocidade+" Kbps";
+                }
+            });
 
 		});
+
+
 
 	}
 
