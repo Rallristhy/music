@@ -51,6 +51,7 @@ io.on('connection', function(socket){
     console.log(socket.handshake.address.substring(7, 20)+" ID: "+socket.id+" entrou...");
 
     video.on("finished", function(err, data) {
+        connection.emit("sucesso", data);
         console.log(JSON.stringify(data));
     });
      

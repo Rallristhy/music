@@ -29,14 +29,14 @@ angular.module('app').controller('Controller', ['$http', '$scope',
 
 			$http.post('/teste', {data:link}).
 		        then(function(response) {
-		            console.log("posted successfully");
+		            console.log("enviado para o servidor...");
 		        }).catch(function(response) {
 		            console.error("error in posting");
 		        });
 
 		}
 
-		var progresso, velocidade;
+		var progresso, velocidade, musica;
 		socket.on("progresso", function(data){
 
 			/* O socket não conhece o ciclo de vida do Angular, por isso é necessário injetar o $scope */
@@ -52,6 +52,20 @@ angular.module('app').controller('Controller', ['$http', '$scope',
             });
 
 		});
+
+		socket.on("sucesso", function(data){
+			$scope.$apply(function () {
+                ctr.progresso = 0;
+				ctr.velocidade = null;
+				ctr.musica = data.file;
+
+            });
+
+			document.getElementById('rallteste').click();
+
+		});
+
+
 
 
 
